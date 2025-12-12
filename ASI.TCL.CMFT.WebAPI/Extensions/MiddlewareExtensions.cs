@@ -12,6 +12,7 @@
                 // 開發環境：直接顯示詳細錯誤頁
                 http://localhost:5278/swagger/v1/swagger.json
                 app.UseDeveloperExceptionPage();
+                app.UseExceptionHandler();
             }
             else
             {

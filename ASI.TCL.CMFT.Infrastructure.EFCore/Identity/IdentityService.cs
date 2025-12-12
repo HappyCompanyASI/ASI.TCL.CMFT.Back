@@ -67,14 +67,14 @@ namespace ASI.TCL.CMFT.Infrastructure.EFCore.Identity
         {
             var user = await userManager.FindByNameAsync(userAccount);
             if (user == null)
-                throw new KeyNotFoundException("使用者不存在。");
+                throw new UnauthorizedAccessException("使用者不存在。");
 
             var passwordCheck = await userManager.CheckPasswordAsync(user, password);
             if (!passwordCheck)
-                throw new InvalidOperationException("登入失敗，密碼錯誤。");
+                throw new UnauthorizedAccessException("登入失敗，密碼錯誤。");
 
             if (await userManager.IsLockedOutAsync(user))
-                throw new InvalidOperationException("帳號已被鎖定，請稍後再試。");
+                throw new UnauthorizedAccessException("帳號已被鎖定，請稍後再試。");
 
             var claims = new List<Claim>();
 
