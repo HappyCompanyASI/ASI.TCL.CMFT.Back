@@ -1,14 +1,12 @@
-﻿using System.Data.Common;
+﻿using ASI.TCL.CMFT.Messages.SYS;
 using ASI.TCL.CMFT.Application;
 using ASI.TCL.CMFT.Application.SYS;
-using ASI.TCL.CMFT.Messages.SYS;
 using ASI.TCL.CMFT.WebAPI.RequestPipeline;
 using ASI.TCL.CMFT.WebAPI.Swagger;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-
-namespace ASI.TCL.CMFT.WebAPI.Controllers.Users
+namespace ASI.TCL.CMFT.WebAPI.Controllers.User
 {
     [ApiController]
     [Route("api/user")]
@@ -24,7 +22,5 @@ namespace ASI.TCL.CMFT.WebAPI.Controllers.Users
         {
             return await RequestHandler.HandleQuery(() => connection.Query(request), logger);
         }
-
-        
     }
 }

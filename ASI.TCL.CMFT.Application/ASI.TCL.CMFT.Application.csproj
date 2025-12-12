@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ASI.TCL.CMFT.Messages\Messages\ASI.TCL.CMFT.Messages.csproj" />
+    <ProjectReference Include="..\..\ASI.TCL.CMFT\ASI.TCL.CMFT.Messages\ASI.TCL.CMFT.Messages.csproj" />
     <ProjectReference Include="..\ASI.TCL.CMFT.Domain\ASI.TCL.CMFT.Domain.csproj" />
   </ItemGroup>
 

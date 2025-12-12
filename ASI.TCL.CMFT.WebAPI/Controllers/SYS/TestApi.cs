@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ASI.TCL.CMFT.WebAPI.Controllers.Systems
+namespace ASI.TCL.CMFT.WebAPI.Controllers.SYS
 {
     [ApiController]
     [Route("api/test")]

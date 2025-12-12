@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Controllers\Systems\Token_20251126.txt" />
+    <Compile Include="Controllers\SYS\Token_20251126.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ASI.TCL.CMFT.Messages\Messages\ASI.TCL.CMFT.Messages.csproj" />
     <ProjectReference Include="..\ASI.TCL.CMFT.Application.Auth\ASI.TCL.CMFT.Application.Auth.csproj" />
     <ProjectReference Include="..\ASI.TCL.CMFT.Application.DMD\ASI.TCL.CMFT.Application.DMD.csproj" />
     <ProjectReference Include="..\ASI.TCL.CMFT.Application.PA\ASI.TCL.CMFT.Application.PA.csproj" />

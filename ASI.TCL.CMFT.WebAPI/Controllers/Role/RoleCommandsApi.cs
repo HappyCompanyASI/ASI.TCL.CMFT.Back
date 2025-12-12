@@ -5,14 +5,12 @@ using ASI.TCL.CMFT.WebAPI.Swagger;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ASI.TCL.CMFT.WebAPI.Controllers.Roles
+namespace ASI.TCL.CMFT.WebAPI.Controllers.Role
 {
     [ApiController]
-    [Route("api/role")]
+    [Route("api/roles")]
     [SwaggerGroup(SwaggerGroupKind.Role)]
-    public class RoleCommandsApi(
-        ApplicationService applicationService,
-        ILogger<RoleCommandsApi> logger)
+    public class RoleCommandsApi(ApplicationService applicationService, ILogger<RoleCommandsApi> logger) 
         : ControllerBase
     {
         //----------------------------------------------------------
@@ -21,7 +19,7 @@ namespace ASI.TCL.CMFT.WebAPI.Controllers.Roles
         [Authorize(Policy = PermissionKey.CanUpdateRole)]
         [Route("create", Order = 4)]
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Commands. request)
+        public async Task<IActionResult> Post([FromBody] Commands.CreateRole request)
         {
             return await RequestHandler.HandleCommand(request, applicationService.Handle, logger);
         }
@@ -32,7 +30,7 @@ namespace ASI.TCL.CMFT.WebAPI.Controllers.Roles
         [Authorize(Policy = PermissionKey.CanUpdateRole)]
         [Route("update", Order = 5)]
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Commands.request)
+        public async Task<IActionResult> Post([FromBody] Commands.UpdateRole request)
         {
             return await RequestHandler.HandleCommand(request, applicationService.Handle, logger);
         }
@@ -43,7 +41,7 @@ namespace ASI.TCL.CMFT.WebAPI.Controllers.Roles
         [Authorize(Policy = PermissionKey.CanUpdateRole)]
         [Route("delete", Order = 6)]
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Commands.V1.DeleteRole request)
+        public async Task<IActionResult> Post([FromBody] Commands.DeleteRole request)
         {
             return await RequestHandler.HandleCommand(request, applicationService.Handle, logger);
         }

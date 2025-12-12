@@ -5,10 +5,10 @@ using ASI.TCL.CMFT.WebAPI.Swagger;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ASI.TCL.CMFT.WebAPI.Controllers.Users
+namespace ASI.TCL.CMFT.WebAPI.Controllers.User
 {
     [ApiController]
-    [Route("api/user")]
+    [Route("api/users")]
     [SwaggerGroup(SwaggerGroupKind.User)]
     public class UserCommandsApi(ApplicationService applicationService, ILogger<UserCommandsApi> logger)
         : ControllerBase
@@ -17,23 +17,16 @@ namespace ASI.TCL.CMFT.WebAPI.Controllers.Users
         // 新增使用者
         //----------------------------------------------------------
         [Authorize(Policy = PermissionKey.CanViewUser)]
-        [Route("create",Order = 3)]
+        [Route("create",Order = 2)]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Commands.CreateUser request)
             => await RequestHandler.HandleCommand(request, applicationService.Handle, logger);
 
-        //----------------------------------------------------------
-        // 編輯使用者
-        //----------------------------------------------------------
-        //[Route("update", Order = 4)]
-        //[HttpPost]
-        //public async Task<IActionResult> Post([FromBody] Commands. request)
-        //    => await RequestHandler.HandleCommand(request, applicationService.Handle, logger);
-
+        
         //----------------------------------------------------------
         // 刪除使用者
         //----------------------------------------------------------
-        [Route("delete", Order = 5)]
+        [Route("delete", Order = 3)]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Commands.DeleteUser request)
             => await RequestHandler.HandleCommand(request, applicationService.Handle, logger);
