@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
+	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ASI.TCL.CMFT.Application\ASI.TCL.CMFT.Application.csproj" />
+    <ProjectReference Include="..\ASI.TCL.CMFT.Domain.DMD\ASI.TCL.CMFT.Domain.DMD.csproj" />
+    <ProjectReference Include="..\ASI.TCL.CMFT.Domain.PA\ASI.TCL.CMFT.Domain.PA.csproj" />
+    <ProjectReference Include="..\ASI.TCL.CMFT.Domain.SYS\ASI.TCL.CMFT.Domain.SYS.csproj" />
+    <ProjectReference Include="..\ASI.TCL.CMFT.Domain\ASI.TCL.CMFT.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

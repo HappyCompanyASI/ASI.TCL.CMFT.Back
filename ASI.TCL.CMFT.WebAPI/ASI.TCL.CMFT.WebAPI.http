@@ -1,0 +1,6 @@
+@ASI.Domestic.VIP.WebAPI_HostAddress = http://localhost:5278
+
+GET {{ASI.Domestic.VIP.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

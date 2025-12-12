@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+	 
+	<GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Servives\**" />
+    <Content Remove="Servives\**" />
+    <EmbeddedResource Remove="Servives\**" />
+    <None Remove="Servives\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Controllers\Systems\Token_20251126.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\ASI.TCL.CMFT.Messages\Messages\ASI.TCL.CMFT.Messages.csproj" />
+    <ProjectReference Include="..\ASI.TCL.CMFT.Application.Auth\ASI.TCL.CMFT.Application.Auth.csproj" />
+    <ProjectReference Include="..\ASI.TCL.CMFT.Application.DMD\ASI.TCL.CMFT.Application.DMD.csproj" />
+    <ProjectReference Include="..\ASI.TCL.CMFT.Application.PA\ASI.TCL.CMFT.Application.PA.csproj" />
+    <ProjectReference Include="..\ASI.TCL.CMFT.Application.SYS\ASI.TCL.CMFT.Application.SYS.csproj" />
+    <ProjectReference Include="..\ASI.TCL.CMFT.Application\ASI.TCL.CMFT.Application.csproj" />
+    <ProjectReference Include="..\ASI.TCL.CMFT.Domain.DMD\ASI.TCL.CMFT.Domain.DMD.csproj" />
+    <ProjectReference Include="..\ASI.TCL.CMFT.Domain.PA\ASI.TCL.CMFT.Domain.PA.csproj" />
+    <ProjectReference Include="..\ASI.TCL.CMFT.Domain.SYS\ASI.TCL.CMFT.Domain.SYS.csproj" />
+    <ProjectReference Include="..\ASI.TCL.CMFT.Domain\ASI.TCL.CMFT.Domain.csproj" />
+    <ProjectReference Include="..\ASI.TCL.CMFT.Infrastructure.EFCore.MigrationTool\ASI.TCL.CMFT.Infrastructure.EFCore.MigrationTool.csproj" />
+    <ProjectReference Include="..\ASI.TCL.CMFT.Infrastructure.EFCore\ASI.TCL.CMFT.Infrastructure.EFCore.csproj" />
+    <ProjectReference Include="..\ASI.TCL.CMFT.Infrastructure.JWTAuthentication\ASI.TCL.CMFT.Infrastructure.JWTAuthentication.csproj" />
+    <ProjectReference Include="..\ASI.TCL.CMFT.Infrastructure.Serilog\ASI.TCL.CMFT.Infrastructure.Serilog.csproj" />
+  </ItemGroup>
+
+</Project>

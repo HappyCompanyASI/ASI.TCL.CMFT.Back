@@ -1,0 +1,28 @@
+﻿
+
+dotnet tool install dotnet-ef `
+  --version 8.0.0 `
+  --add-source https://api.nuget.org/v3/index.json `
+  --ignore-failed-sources
+
+
+dotnet tool list
+
+--------------------
+     新建資料庫
+--------------------
+1. 刪除整個資料庫
+
+2. 刪除 Migrations 資料夾
+
+3. 建立/追加 migration
+dotnet tool run dotnet-ef migrations add Init `
+  --project "ASI.TCL.CMFT.Infrastructure.EFCore\ASI.TCL.CMFT.Infrastructure.EFCore.csproj" `
+  --startup-project "ASI.TCL.CMFT.Infrastructure.EFCore.MigrationTool\ASI.TCL.CMFT.Infrastructure.EFCore.MigrationTool.csproj" `
+  --context ApplicationDbContext
+
+4. 同步資料庫
+dotnet tool run dotnet-ef database update `
+  --project "ASI.TCL.CMFT.Infrastructure.EFCore\ASI.TCL.CMFT.Infrastructure.EFCore.csproj" `
+  --startup-project "ASI.TCL.CMFT.Infrastructure.EFCore.MigrationTool\ASI.TCL.CMFT.Infrastructure.EFCore.MigrationTool.csproj" `
+  --context ApplicationDbContext
