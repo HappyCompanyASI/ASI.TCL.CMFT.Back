@@ -3,9 +3,10 @@
     public enum SwaggerGroupKind
     {
         Auth = 1,
-        Role = 2,
-        User = 4,
-        Passenger = 6,
+        SYS = 2,
+        PA=3,
+        DMD =4,
+        Tetra=5,
         Test = 99
     }
 }

@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ASI.TCL.CMFT.Infrastructure.EFCore.EntityTypeConfiguration
 {
-    public class VoiceGroupConfiguration : AuditableEntityTypeConfiguration<VoiceGroup>
+    public class VoiceGroupConfiguration : IEntityTypeConfiguration<VoiceGroup>
     {
-        protected override void ConfigureEntity(EntityTypeBuilder<VoiceGroup> builder)
+        public void Configure(EntityTypeBuilder<VoiceGroup> builder)
         {
             builder.ToTable("voice_group", "dbo");
 

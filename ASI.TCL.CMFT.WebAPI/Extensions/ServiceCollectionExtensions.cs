@@ -1,18 +1,21 @@
 ﻿using System.Data.Common;
+
 using ASI.TCL.CMFT.Application;
-using ASI.TCL.CMFT.Application.Auth;
 using ASI.TCL.CMFT.Domain;
+using ASI.TCL.CMFT.Domain.SYS;
 using ASI.TCL.CMFT.Infrastructure.EFCore;
 using ASI.TCL.CMFT.Infrastructure.EFCore.Identity;
 using ASI.TCL.CMFT.Infrastructure.JWTAuthentication;
-using ASI.TCL.CMFT.Messages.SYS;
 using ASI.TCL.CMFT.WebAPI.ConfigrueOptions;
 using ASI.TCL.CMFT.WebAPI.RequestPipeline;
+using ASI.TCL.CMFT.WebAPI.Startup;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+
 using Npgsql;
+
 using Serilog;
 
 namespace ASI.TCL.CMFT.WebAPI.Extensions
@@ -25,9 +28,6 @@ namespace ASI.TCL.CMFT.WebAPI.Extensions
                 .ReadFrom.Configuration(configuration)
                 .CreateLogger();
             services.AddSingleton(sp => new LoggerFactory().AddSerilog(Log.Logger, dispose: true));
-
-
-
 
             // 註冊「基礎層」(Infrastructure Layer)
             // EFCore DbContext & Repository & UnitOfWork
@@ -48,13 +48,14 @@ namespace ASI.TCL.CMFT.WebAPI.Extensions
             services.ConfigureOptions<ConfigureIdentityOptions>();
             
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IIdentitySeeder, IdentitySeeder>();
+
+
             //services.AddScoped<IAggregateStore, AggregateStore>();
             //services.AddScoped<IOperatorAccessor, OperatorAccessor>();
             //services.AddScoped<IOperatorRecorder, OperatorRecorder>();
             //services.AddScoped<IHashingService, HashingService>();
             //services.AddScoped<ILoginService, LoginService>();
-            //services.AddScoped<IApplicationInitializer, DbInitializer>();
-
 
             // JWT/Token
             var jwtSettingsSection = configuration.GetSection("JwtSettings");
@@ -79,7 +80,7 @@ namespace ASI.TCL.CMFT.WebAPI.Extensions
             services.AddScoped<IIdentityService, IdentityService>();
             //services.AddScoped<UserApplicationService>();
             //services.AddScoped<RoleApplicationService>();
-
+            services.AddScoped<IAppInitializer, AppInitializer>();
 
             services.AddCors(options =>
             {
@@ -113,7 +114,7 @@ namespace ASI.TCL.CMFT.WebAPI.Extensions
             services.ConfigureOptions<ConfigureJwtBearerOptions>();
             services.AddAuthorization(options =>
             {
-                foreach (var permission in PermissionKey.GetAdminstratorPermissions())
+                foreach (var permission in Authority.AuthorityList.Select(x=>x.Code))
                 {
                     options.AddPolicy(permission, policy =>
                         policy.RequireClaim("Permission", permission));

@@ -1,4 +1,4 @@
-﻿using ASI.TCL.CMFT.Infrastructure.EFCore.Identity;
+﻿using ASI.TCL.CMFT.Application;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;

@@ -1,9 +1,10 @@
-﻿namespace ASI.TCL.CMFT.Infrastructure.EFCore;
-
-public interface IAuditable
+﻿namespace ASI.TCL.CMFT.Infrastructure.EFCore
 {
-    DateTime CreatedAt { get; set; }
-    string CreatedBy { get; set; }
-    DateTime UpdatedAt { get; set; }
-    string UpdatedBy { get; set; }
+    public interface IAuditable
+    {
+        DateTime CreatedAt { get; set; }
+        public Guid CreatedBy { get; set; }
+        DateTime UpdatedAt { get; set; }
+        public Guid UpdatedBy { get; set; }
+    }
 }

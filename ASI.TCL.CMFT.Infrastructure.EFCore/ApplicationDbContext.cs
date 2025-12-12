@@ -1,8 +1,5 @@
-﻿using System.Data;
+﻿using ASI.TCL.CMFT.Application;
 using ASI.TCL.CMFT.Domain;
-using ASI.TCL.CMFT.Domain.DMD;
-using ASI.TCL.CMFT.Domain.PA;
-using ASI.TCL.CMFT.Domain.SYS;
 using ASI.TCL.CMFT.Infrastructure.EFCore.EntityTypeConfiguration;
 using ASI.TCL.CMFT.Infrastructure.EFCore.Extensions;
 using ASI.TCL.CMFT.Infrastructure.EFCore.Identity;
@@ -35,7 +32,7 @@ namespace ASI.TCL.CMFT.Infrastructure.EFCore
         
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            await SetSessionUserIdAsync(cancellationToken);
+            ApplyAudit();
             return await base.SaveChangesAsync(cancellationToken);
         }
 
@@ -56,16 +53,18 @@ namespace ASI.TCL.CMFT.Infrastructure.EFCore
             modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("role_claims", "dbo");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("user_roles", "dbo");
 
-
-
-
-
             //modelBuilder.ApplyConfiguration(new MessageGroupConfiguration());
             //modelBuilder.ApplyConfiguration(new MessageConfiguration());
             //modelBuilder.ApplyConfiguration(new VoiceGroupConfiguration());
             //modelBuilder.ApplyConfiguration(new VoiceConfiguration());
 
             // 針對所有實作 IAuditable 的 Entity，統一設定 CreatedAt / UpdatedAt 的 Default
+
+            var isNpgsql = Database.ProviderName != null && Database.ProviderName.Contains("Npgsql");
+            var nowSql = isNpgsql
+                ? "CURRENT_TIMESTAMP AT TIME ZONE 'UTC'"
+                : "SYSUTCDATETIME()";
+
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
                 var clrType = entityType.ClrType;
@@ -75,37 +74,45 @@ namespace ASI.TCL.CMFT.Infrastructure.EFCore
                     var entity = modelBuilder.Entity(clrType);
 
                     entity.Property("CreatedAt")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP AT TIME ZONE 'UTC'");
+                        .HasDefaultValueSql(nowSql);
 
                     entity.Property("UpdatedAt")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP AT TIME ZONE 'UTC'");
+                        .HasDefaultValueSql(nowSql);
                 }
             }
             modelBuilder.UseSnakeCaseNames();
         }
 
-        private async Task SetSessionUserIdAsync(CancellationToken cancellationToken)
+        private static readonly Guid SystemUserId = new("00000000-0000-0000-0000-000000000001");
+
+        private void ApplyAudit()
         {
-            var userId = _currentUserService.GetCurrentUserId();
-            if (userId == Guid.Empty)
-                return;
+            var uid = _currentUserService.GetCurrentUserId();
+            if (uid == Guid.Empty)
+                uid = SystemUserId;
 
-            var connection = Database.GetDbConnection();
-            if (connection.State != ConnectionState.Open)
-                await connection.OpenAsync(cancellationToken);
+            var now = DateTime.UtcNow;
 
-            using (var command = connection.CreateCommand())
+            foreach (var entry in ChangeTracker.Entries())
             {
-                command.CommandText =
-                    "EXEC sp_set_session_context @key = N'UserId', @value = @userId;";
+                if (entry.Entity is IAuditable auditable)
+                {
+                    if (entry.State == EntityState.Added)
+                    {
+                        auditable.CreatedAt = now;
+                        auditable.CreatedBy = uid;
 
-                var parameter = command.CreateParameter();
-                parameter.ParameterName = "@userId";
-                parameter.Value = userId;
-                command.Parameters.Add(parameter);
-
-                await command.ExecuteNonQueryAsync(cancellationToken);
+                        auditable.UpdatedAt = now;
+                        auditable.UpdatedBy = uid;
+                    }
+                    else if (entry.State == EntityState.Modified)
+                    {
+                        auditable.UpdatedAt = now;
+                        auditable.UpdatedBy = uid;
+                    }
+                }
             }
         }
+
     }
 }

@@ -40,6 +40,16 @@ namespace ASI.TCL.CMFT.Application.SYS
 
         public static async Task<IEnumerable<ReadModels.User>> Query(
             this IQueryService connection,
+            QueryModels.GetUser query)
+        {
+            const string sql = @"";
+
+            var readModels = await connection.QueryAsync<ReadModels.User>(sql);
+            return readModels.ToList();
+        }
+
+        public static async Task<IEnumerable<ReadModels.User>> Query(
+            this IQueryService connection,
             QueryModels.GetAllUsers query)
         {
             const string sql = @"SELECT 

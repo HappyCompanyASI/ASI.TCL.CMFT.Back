@@ -1,17 +1,32 @@
 ﻿namespace ASI.TCL.CMFT.Domain.SYS
 {
+    public enum AuthPremission
+    {
+        PAFunc,
+        PASetting,
+        DMDFunc,
+        DMDSetting,
+        TetraFunc,
+        TetraSetting,
+        SYSSetting,
+
+        OTCSFunc,
+        AlarmSetting,
+       
+    }
     public class Authority : Value<Authority>
     {
+       
+        public static readonly List<Authority> AuthorityList =
+            Enum.GetNames(typeof(AuthPremission))
+                .Select(name => new Authority(name))
+                .ToList();
+
+
         public string Code { get; }
 
-        public static string AutStringhList
-            => "PAFunc,PASetting,DMDFunc,DMDSetting,TetraFunc,TetraSetting,OTCSFunc,AlarmSetting,UserSetting";
-
-        public static List<Authority> AuthList
-            => AutStringhList
-                .Split(',', StringSplitOptions.RemoveEmptyEntries)
-                .Select(code => new Authority(code.Trim()))
-                .ToList();
+        
+          
 
         public Authority(string code)
         {

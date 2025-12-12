@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ASI.TCL.CMFT.Infrastructure.EFCore.EntityTypeConfiguration
 {
-    public class MessageGroupConfiguration : AuditableEntityTypeConfiguration<MessageGroup>
+    public class MessageGroupConfiguration : IEntityTypeConfiguration<MessageGroup>
     {
-        protected override void ConfigureEntity(EntityTypeBuilder<MessageGroup> builder)
+        public void Configure(EntityTypeBuilder<MessageGroup> builder)
         {
             builder.ToTable("message_group", "dbo");
 

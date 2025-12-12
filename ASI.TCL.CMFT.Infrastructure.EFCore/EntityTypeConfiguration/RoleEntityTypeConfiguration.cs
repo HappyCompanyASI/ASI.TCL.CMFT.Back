@@ -25,8 +25,6 @@ namespace ASI.TCL.CMFT.Infrastructure.EFCore.EntityTypeConfiguration
             builder.HasIndex(r => r.Name)
                 .IsUnique();
 
-         
-
             // Description: nvarchar(max)，可為空
             builder.Property(r => r.Description)
                 .HasColumnOrder(3)

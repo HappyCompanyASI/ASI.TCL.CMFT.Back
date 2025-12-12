@@ -1,6 +1,5 @@
 ﻿using System.Security.Claims;
 using ASI.TCL.CMFT.Application;
-using ASI.TCL.CMFT.Infrastructure.EFCore.Identity;
 
 namespace ASI.TCL.CMFT.WebAPI
 {

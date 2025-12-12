@@ -1,4 +1,4 @@
-﻿namespace ASI.TCL.CMFT.Infrastructure.EFCore.Identity
+﻿namespace ASI.TCL.CMFT.Application
 {
     public interface ICurrentUserService
     {

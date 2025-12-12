@@ -1,5 +1,4 @@
-﻿using ASI.TCL.CMFT.Domain.SYS;
-using ASI.TCL.CMFT.Infrastructure.EFCore.Identity;
+﻿using ASI.TCL.CMFT.Infrastructure.EFCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

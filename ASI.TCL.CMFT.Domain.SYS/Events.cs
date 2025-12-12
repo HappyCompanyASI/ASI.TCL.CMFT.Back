@@ -2,11 +2,6 @@
 {
     public static class Events
     {
-        public record UserRenamed(string NewName);
-        public record DescriptionChanged(string? NewDescription);
-        public record RoleChanged(RoleId NewRoleId);
-        public record UserCreated(UserId Id, string Name, string PasswordHash, RoleId RoleId, string? Description);
-
         public class StationGroupCreated
         {
             public StationGroupId Id { get; set; } = null!;
